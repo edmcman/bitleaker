@@ -12,7 +12,7 @@
 echo "====================================="
 echo "Install packages to build BitLeaker."
 echo "====================================="
-sudo apt install git libtool m4 automake pkg-config autoconf-archive libcurl4-openssl-dev libssl-dev bison flex python cmake libfuse-dev ruby-dev libmbedtls-dev build-essential
+sudo apt install git libtool m4 automake pkg-config autoconf-archive libcurl4-openssl-dev libssl-dev bison flex python-is-python3 cmake libfuse-dev ruby-dev libmbedtls-dev build-essential
 
 echo ""
 echo "========================================="
