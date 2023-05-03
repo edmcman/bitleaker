@@ -10,6 +10,8 @@
 #include <linux/module.h>
 #include <linux/kernel.h>
 #include <linux/init.h>
+#include <asm/io.h>
+#include <linux/kprobes.h>
 #include <asm/text-patching.h>
 #include <linux/kallsyms.h>
 
@@ -57,7 +59,7 @@ static int dump_event_logs(void)
 	char* start_buffer;
 	int i;
 
-	buffer = (char*) ioremap_nocache(RESERVED_START, RESERVED_SIZE);
+	buffer = (char*) ioremap(RESERVED_START, RESERVED_SIZE);
 	printk(KERN_INFO"bitleaker: \n");
 	printk(KERN_INFO"bitleaker: Dump event logs\n");
 	printk(KERN_INFO"bitleaker: Virtual address %p physical address %p\n", (void*)buffer, (void*)RESERVED_START);
@@ -86,12 +88,24 @@ static int dump_event_logs(void)
 	return 0;
 }
 
+static struct kprobe kp = {
+    .symbol_name = "kallsyms_lookup_name"
+};
+
 /**
  * Initialize this module.
  */
 static int __init bitleaker_init(void) 
 {
-	// Find functions
+
+
+  typedef unsigned long (*kallsyms_lookup_name_t)(const char *name);
+  kallsyms_lookup_name_t kallsyms_lookup_name;
+  register_kprobe(&kp);
+  kallsyms_lookup_name = (kallsyms_lookup_name_t) kp.addr;
+  unregister_kprobe(&kp);
+
+        // Find functions
 	g_fn_text_poke = (TEXT_POKE) kallsyms_lookup_name("text_poke");
 	g_tpm_suspend_addr = kallsyms_lookup_name("tpm_pm_suspend");
 
