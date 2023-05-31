@@ -44,16 +44,16 @@ docker build --network=host -t tpm2-tools .
 # sudo make install
 # cd ..
 
-# echo ""
-# echo "===================================================="
-# echo "Clone customized Dislocker repository and build it."
-# echo "===================================================="
-# git clone https://github.com/kkamagui/dislocker.git
-# cd dislocker
-# cmake .
-# make -j
-# sudo make install
-# cd ..
+echo ""
+echo "===================================================="
+echo "Clone customized Dislocker repository and build it."
+echo "===================================================="
+git clone https://github.com/kkamagui/dislocker.git
+cd dislocker
+cmake .
+make -j
+sudo make install
+cd ..
 
 # echo ""
 # echo "==================================================="
