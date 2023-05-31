@@ -323,6 +323,3 @@ replay_event_log(log)
 #sys.exit(1)
 
 unseal(get_drive_path())
-
-
-drive = get_drive_path()
