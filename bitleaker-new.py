@@ -200,6 +200,7 @@ def get_drive_path():
     return drive_path
 
 def unseal(drive):
+    info_print("Extracting sealed keys from dislocker-meta\n")
     dislocker_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "dislocker/src/dislocker")
     dislocker_output = execute("%s-metadata -v -v -v -V %s" % (dislocker_path, drive)).splitlines()
 
