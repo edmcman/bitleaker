@@ -175,8 +175,8 @@ def reset_pcrs():
     info_print("Awake, restoring hierarchy\n")
     wait()
     subprocess.run("sleep %d" % WAIT_TIME, shell=True)
-    execute("tpm2_hierarchycontrol -C p shEnable set", shell=True)
-    execute("tpm2_hierarchycontrol -C p ehEnable set", shell=True)
+    execute("tpm2_hierarchycontrol -C p shEnable set")
+    execute("tpm2_hierarchycontrol -C p ehEnable set")
 
 def get_drive_path():
     # Searching for BitLocker-locked partitions
