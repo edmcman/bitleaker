@@ -276,7 +276,7 @@ def unseal(drive):
     execute("mount -o ro,loopback /tmp/mnt/dislocker-file /mnt/dislocker")
 
 
-    info_print("The BitLocker volume is opened in /mnt/dislocker\n")
+    color_print("The BitLocker volume is opened in /mnt/dislocker\n", GREEN)
 
 output = get_pcrs()
 
