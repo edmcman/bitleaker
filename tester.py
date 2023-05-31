@@ -47,7 +47,7 @@ def get_pcrs():
             d[hash] = {}
         else:
             n, v, *ignore = l.split(b":")
-            d[hash][int(n)] = v[1:]
+            d[hash][int(n)] = int(v[1:], 16)
 
     #print(d)
 
@@ -66,15 +66,15 @@ def suspend():
 
 output = get_pcrs()
 
-hash = next(output.keys())
+hash = next(iter(output))
 
 if 0 not in output[hash]:
-    color_print("Unable to find PCR 0\n", RED)
+    color_print("Unable to find PCR 0\n", FAIL)
     sys.exit(1)
 
 # Fix me for non SHA 256...
-if output[hash][0] == "0x0000000000000000000000000000000000000000000000000000000000000000":
-    color_print("PCR 0 was already zero", RED)
+if output[hash][0] == 0:
+    color_print("PCR 0 was already zero", FAIL)
     sys.exit(1)
 
 kernel_module_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "bitleaker-kernel-module/bitleaker-kernel-module.ko")
@@ -86,11 +86,12 @@ suspend()
 
 newoutput = get_pcrs()
 
-for l in output:
-    info_print('%s\n' % l)
+if False:
+    for l in output:
+        info_print('%s\n' % l)
 
-for l in newoutput:
-    info_print('%s\n' % l)
+    for l in newoutput:
+        info_print('%s\n' % l)
 
 zero = False
 
@@ -100,5 +101,9 @@ for pcr in output[hash].keys():
     
     if old != new:
         color_print("PCR %d changed from %s to %s\n" % (pcr, old, new), GREEN)
+        if new == 0:
+            zero = True
 
-info_print('Did any PCRs change to zero?\n')
+if not zero:
+    color_print("Machine does not appear to be vulnerable", FAIL)
+    sys.exit(1)

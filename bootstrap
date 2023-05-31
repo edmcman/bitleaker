@@ -12,7 +12,7 @@
 echo "====================================="
 echo "Install packages to build BitLeaker."
 echo "====================================="
-sudo apt install git libtool m4 automake pkg-config autoconf-archive libcurl4-openssl-dev libssl-dev bison flex python-is-python3 cmake libfuse-dev ruby-dev libmbedtls-dev build-essential
+sudo apt install git build-essential tpm2-tools
 
 # echo ""
 # echo "========================================="
@@ -49,18 +49,18 @@ sudo apt install git libtool m4 automake pkg-config autoconf-archive libcurl4-op
 # sudo make install
 # cd ..
 
-echo ""
-echo "==================================================="
-echo "Clone BitLeaker Bootloader repository and build it."
-echo "==================================================="
-git clone https://github.com/kkamagui/bitleaker-grub.git
-cd bitleaker-grub
-sudo ln -s /usr/include/locale.h /usr/include/xlocale.h
-./autogen.sh
-./configure --target=x86_64 --with-platform=efi
-./build.sh
-sudo ./install.sh
-cd ..
+# echo ""
+# echo "==================================================="
+# echo "Clone BitLeaker Bootloader repository and build it."
+# echo "==================================================="
+# git clone https://github.com/kkamagui/bitleaker-grub.git
+# cd bitleaker-grub
+# sudo ln -s /usr/include/locale.h /usr/include/xlocale.h
+# ./autogen.sh
+# ./configure --target=x86_64 --with-platform=efi
+# ./build.sh
+# sudo ./install.sh
+# cd ..
 
 echo ""
 echo "==============================="
