@@ -12,13 +12,13 @@
 echo "====================================="
 echo "Install packages to build BitLeaker."
 echo "====================================="
-sudo apt install git build-essential tpm2-tools docker.io
+sudo apt install git build-essential tpm2-tools docker.io cmake
 
 echo "====================================="
 echo "Building BitLeaker docker image."
 echo "====================================="
 
-docker build --network=host -t tpm2-tools .
+sudo docker build --network=host -t tpm2-tools .
 
 # echo ""
 # echo "========================================="
