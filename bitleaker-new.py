@@ -215,7 +215,7 @@ def unseal(drive):
                 found_hex = True
                 #print(l)
                 l = l.replace(b"-", b" ")
-                new_bytes = bytes([int("0x%s" % b.decode(), 16) for b in l.split(b" ")[8:-1]])
+                new_bytes = bytes([int("0x%s" % b.decode(), 16) for b in l.split()[7:]])
                 all_bytes = all_bytes + new_bytes
                 #
                 # pub_size = int.from_bytes(all_bytes[pub_offset:pub_offset+2], "big")
