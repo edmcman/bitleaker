@@ -12,7 +12,7 @@
 echo "====================================="
 echo "Install packages to build BitLeaker."
 echo "====================================="
-sudo apt install git build-essential tpm2-tools docker.io cmake
+sudo apt install git build-essential tpm2-tools docker.io cmake libmbedtls-dev libfuse-dev
 
 echo "====================================="
 echo "Building BitLeaker docker image."
@@ -52,7 +52,7 @@ git clone https://github.com/kkamagui/dislocker.git
 cd dislocker
 cmake .
 make -j
-sudo make install
+#sudo make install
 cd ..
 
 # echo ""
